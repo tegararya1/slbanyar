@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monitoring Pangan Kambing</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gradient-to-br from-green-50 to-emerald-100 min-h-screen">
+
+<!-- Tombol kanan bawah -->
+<div class="fixed bottom-6 right-6 flex flex-col space-y-3">
+  <a href="#" id="btnLaporanPangan" onclick="goToLaporanSemua()" 
+     class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl shadow-lg text-lg font-bold text-center">
+     📊 Cek Laporan Semua Kambing
+  </a>
+  <a href="index.html" 
+     class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl shadow-lg text-lg font-bold text-center">
+     🔄 Cek Sensor Pangan
+  </a>
+</div>
+
+
+  <div class="container mx-auto px-4 py-8 max-w-5xl">
+    <!-- Header -->
+    <div class="text-center mb-6">
+      <h1 class="text-3xl font-bold text-gray-800 mb-2">Monitoring Pangan Kambing</h1>
+      <p class="text-gray-600">SLB DARMAYANTI</p>
+    </div>
+
+    <!-- Step Indicator -->
+    <div id="stepIndicator" class="flex justify-center space-x-2 mb-4"></div>
+
+    <!-- Step container -->
+    <div id="stepContent"></div>
+  </div>
+
+  <!-- Modal PIN -->
+  <div id="modalPin" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-80 text-center">
+      <h2 class="text-lg font-semibold mb-4">Masukkan PIN</h2>
+      <input id="pinInput" type="password" maxlength="4"
+             inputmode="numeric" pattern="[0-9]*"
+             autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false"
+             class="border rounded px-3 py-2 w-full text-center text-lg tracking-widest"
+             placeholder="••••">
+      <p id="pinError" class="text-red-600 text-sm mt-2 hidden">PIN salah!</p>
+      <div class="mt-4 flex justify-center space-x-3">
+        <button onclick="checkPin()" class="bg-blue-600 text-white px-4 py-2 rounded-lg">OK</button>
+        <button onclick="resetPinModal()" class="bg-gray-500 text-white px-4 py-2 rounded-lg">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Kelola Kambing -->
+  <div id="modalKambing" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+      <h2 class="text-lg font-semibold mb-4">Kelola Kambing</h2>
+      <div id="kambingList" class="space-y-2 mb-4"></div>
+      <div class="flex space-x-2 mb-4">
+        <input id="newKambing" type="text" placeholder="Nama kambing baru" class="border p-2 rounded flex-grow">
+        <button onclick="addKambing()" class="bg-green-600 text-white px-4 rounded">Tambah</button>
+      </div>
+      <button onclick="closeKambingModal()" class="bg-gray-600 text-white px-4 py-2 rounded w-full">Tutup</button>
+    </div>
+  </div>
+
+  <!-- Modal Edit Kambing -->
+  <div id="modalEditKambing" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-80 text-center">
+      <h2 class="text-lg font-bold mb-4">Edit Kambing</h2>
+      <input type="text" id="editKambingInput" class="border rounded w-full p-2 mb-4">
+      <div class="flex justify-center space-x-4">
+        <button onclick="confirmEditKambing()" class="bg-blue-600 text-white px-4 py-2 rounded">Simpan</button>
+        <button onclick="closeEditKambing()" class="bg-gray-500 text-white px-4 py-2 rounded">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Hapus Kambing -->
+  <div id="modalHapusKambing" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-80 text-center">
+      <h2 class="text-lg font-bold mb-4">Hapus Kambing</h2>
+      <p id="hapusKambingText" class="mb-4"></p>
+      <div class="flex justify-center space-x-4">
+        <button onclick="confirmHapusKambing()" class="bg-red-600 text-white px-4 py-2 rounded">Hapus</button>
+        <button onclick="closeHapusKambing()" class="bg-gray-500 text-white px-4 py-2 rounded">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Hapus Laporan -->
+  <div id="modalHapusLaporan" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-80 text-center">
+      <h2 class="text-lg font-semibold mb-4">Masukkan PIN untuk Hapus Data</h2>
+      <input type="password" id="hapusLaporanPin" maxlength="4"
+             inputmode="numeric" pattern="[0-9]*"
+             autocomplete="new-password" autocorrect="off" autocapitalize="off" spellcheck="false"
+             class="border rounded px-3 py-2 w-full text-center text-lg tracking-widest mb-2"
+             placeholder="••••">
+      <p id="hapusLaporanError" class="text-red-600 text-sm hidden mb-2">PIN salah!</p>
+      <div class="flex justify-between">
+        <button onclick="confirmHapusLaporan()" class="bg-red-600 text-white px-4 py-2 rounded">Hapus</button>
+        <button onclick="resetHapusLaporanModal()" class="bg-gray-500 text-white px-4 py-2 rounded">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="pangan.js"></script>
+</body>
+</html>
