@@ -27,3 +27,9 @@ body {
   background: #2563eb;
   color: white;
 }
+.fixed-btn {
+  position: fixed;
+  bottom: 1.5rem; /* 6 (24px) */
+  right: 1.5rem;
+  z-index: 50; /* pastikan di atas card & modal */
+}
