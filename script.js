@@ -123,7 +123,7 @@ else if(currentStep === 4){
     <div class="bg-white p-6 rounded-2xl shadow-md text-center">
       <div class="flex justify-between mb-4">
         <button onclick="goBackTHG()" class="bg-gray-500 text-white px-6 py-2 rounded-lg">Kembali</button>
-        <button onclick="generateLaporan()" class="bg-blue-600 text-white px-6 py-2 rounded-lg">Generate Laporan</button>
+        <button onclick="generateLaporan()" class="bg-blue-600 text-white px-6 py-2 rounded-lg">Buat Laporan</button>
       </div>
       <h2 class="text-lg font-semibold mb-4">Pilih Status LED</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
