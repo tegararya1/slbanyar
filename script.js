@@ -45,106 +45,107 @@ function renderStep(){
   renderStepIndicator();
 
   // STEP 1: PROFIL
-  if(currentStep === 1){
-    stepContent.innerHTML = `
-      <div class="bg-white p-6 rounded-2xl shadow-md text-center">
-        <h2 class="text-lg font-semibold mb-4">Pilih Profil Siswa</h2>
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
-          ${profiles.map(nama=>{
-            const selected = selectedProfil?.nama === nama ? "bg-blue-200 border-2 border-blue-500" : "bg-blue-50";
-            return `
-              <div onclick="selectProfil('${nama}')" 
-                   class="cursor-pointer p-4 rounded-xl shadow-md ${selected} hover:bg-blue-100 transition">
-                <div class="text-5xl mb-2">🎓</div>
-                <p class="font-bold">${nama}</p>
-              </div>
-            `;
-          }).join("")}
-        </div>
-        <div class="flex justify-between">
-          <button onclick="openPinModal('profil')" class="bg-gray-800 text-white px-4 py-2 rounded-lg">Kelola Profil</button>
-          <button onclick="goNext()" class="bg-blue-600 text-white px-6 py-2 rounded-lg">Lanjut ke Drum</button>
-        </div>
+ if(currentStep === 1){
+  stepContent.innerHTML = `
+    <div class="bg-white p-6 rounded-2xl shadow-md text-center">
+      <div class="flex justify-between mb-4">
+        <button onclick="openPinModal('profil')" class="bg-gray-800 text-white px-4 py-2 rounded-lg">Kelola Profil</button>
+        <button onclick="goNext()" class="bg-blue-600 text-white px-6 py-2 rounded-lg">Lanjut ke Drum</button>
       </div>
-    `;
-  }
+      <h2 class="text-lg font-semibold mb-4">Pilih Profil Siswa</h2>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        ${profiles.map(nama=>{
+          const selected = selectedProfil?.nama === nama ? "bg-blue-200 border-2 border-blue-500" : "bg-blue-50";
+          return `
+            <div onclick="selectProfil('${nama}')"
+                 class="cursor-pointer p-4 rounded-xl shadow-md ${selected} hover:bg-blue-100 transition">
+              <div class="text-5xl mb-2">🎓</div>
+              <p class="font-bold">${nama}</p>
+            </div>
+          `;
+        }).join("")}
+      </div>
+    </div>
+  `;
+}
+
 
   // STEP 2: DRUM
-  else if(currentStep === 2){
-    stepContent.innerHTML = `
-      <div class="bg-white p-6 rounded-2xl shadow-md text-center">
-        <h2 class="text-lg font-semibold mb-4">Pilih Drum Fermentasi</h2>
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
-          ${drums.map(nama=>{
-            const selected = selectedDrum === nama ? "bg-green-200 border-2 border-green-500" : "bg-green-50";
-            return `
-              <div onclick="selectDrum('${nama}')" 
-                   class="cursor-pointer p-4 rounded-xl shadow-md ${selected} hover:bg-green-100 transition">
-                <div class="text-5xl mb-2">🛢️</div>
-                <p class="font-bold">Drum ${nama}</p>
-              </div>
-            `;
-          }).join("")}
-        </div>
-        <div class="flex items-center justify-between">
-          <div class="flex gap-2">
-            <button onclick="goBackProfil()" class="bg-gray-500 text-white px-6 py-2 rounded-lg">Kembali</button>
-            <button onclick="openPinModal('drum')" class="bg-gray-800 text-white px-4 py-2 rounded-lg">Kelola Drum</button>
-          </div>
-          <button onclick="goNext()" class="bg-blue-600 text-white px-6 py-2 rounded-lg">Lanjut ke Input THG</button>
-        </div>
+else if(currentStep === 2){
+  stepContent.innerHTML = `
+    <div class="bg-white p-6 rounded-2xl shadow-md text-center">
+      <div class="flex justify-between mb-4">
+        <button onclick="goBackProfil()" class="bg-gray-500 text-white px-6 py-2 rounded-lg">Kembali</button>
+        <button onclick="openPinModal('drum')" class="bg-gray-800 text-white px-4 py-2 rounded-lg">Kelola Drum</button>
+        <button onclick="goNext()" class="bg-blue-600 text-white px-6 py-2 rounded-lg">Lanjut ke Input THG</button>
       </div>
-    `;
-  }
+      <h2 class="text-lg font-semibold mb-4">Pilih Drum Fermentasi</h2>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        ${drums.map(nama=>{
+          const selected = selectedDrum === nama ? "bg-green-200 border-2 border-green-500" : "bg-green-50";
+          return `
+            <div onclick="selectDrum('${nama}')"
+                 class="cursor-pointer p-4 rounded-xl shadow-md ${selected} hover:bg-green-100 transition">
+              <div class="text-5xl mb-2">🛢️</div>
+              <p class="font-bold">Drum ${nama}</p>
+            </div>
+          `;
+        }).join("")}
+      </div>
+    </div>
+  `;
+}
+
 
   // STEP 3: INPUT THG
-  else if(currentStep === 3){
-    stepContent.innerHTML = `
-      <div class="bg-white p-6 rounded-2xl shadow-md text-center relative">
-        <button onclick="skipTHG()" class="absolute top-3 right-3 bg-yellow-500 text-white px-3 py-1 rounded">Lewati</button>
-        <h2 class="text-lg font-semibold mb-4">Input Data THG</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          <input id="suhu" type="number" placeholder="Suhu (°C)" class="p-2 border rounded-lg">
-          <input id="kelembapan" type="number" placeholder="Kelembapan (%)" class="p-2 border rounded-lg">
-          <input id="gas" type="number" placeholder="Gas (ppm)" class="p-2 border rounded-lg">
-        </div>
-        <div class="flex justify-between">
-          <button onclick="goBackDrum()" class="bg-gray-500 text-white px-6 py-2 rounded-lg">Kembali</button>
-          <button onclick="nextStepTHG()" class="bg-blue-600 text-white px-6 py-2 rounded-lg">Lanjut</button>
-        </div>
+else if(currentStep === 3){
+  stepContent.innerHTML = `
+    <div class="bg-white p-6 rounded-2xl shadow-md text-center relative">
+      <div class="flex justify-between mb-4">
+        <button onclick="goBackDrum()" class="bg-gray-500 text-white px-6 py-2 rounded-lg">Kembali</button>
+        <button onclick="skipTHG()" class="bg-yellow-500 text-white px-4 py-2 rounded">Lewati</button>
+        <button onclick="nextStepTHG()" class="bg-blue-600 text-white px-6 py-2 rounded-lg">Lanjut</button>
       </div>
-    `;
-  }
+      <h2 class="text-lg font-semibold mb-4">Input Data THG</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <input id="suhu" type="number" placeholder="Suhu (°C)" class="p-2 border rounded-lg">
+        <input id="kelembapan" type="number" placeholder="Kelembapan (%)" class="p-2 border rounded-lg">
+        <input id="gas" type="number" placeholder="Gas (ppm)" class="p-2 border rounded-lg">
+      </div>
+    </div>
+  `;
+}
+
 
   // STEP 4: PILIH WARNA
-  else if(currentStep === 4){
-    stepContent.innerHTML = `
-      <div class="bg-white p-6 rounded-2xl shadow-md text-center">
-        <h2 class="text-lg font-semibold mb-4">Pilih Status LED</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          ${["Belum Siap","Hampir Siap","Sudah Siap"].map(w=>{
-            const warnaBg = w==="Belum Siap" ? "bg-red-100 hover:bg-red-200"
-                          : w==="Hampir Siap" ? "bg-yellow-100 hover:bg-yellow-200"
-                          : "bg-green-100 hover:bg-green-200";
-            const bulatan = w==="Belum Siap" ? "bg-red-500"
-                          : w==="Hampir Siap" ? "bg-yellow-500"
-                          : "bg-green-500";
-            return `
-              <div onclick="setWarna('${w}')" 
-                   class="cursor-pointer p-6 rounded-xl border ${warna===w?'ring-2 ring-blue-500':''} ${warnaBg}">
-                <div class="w-12 h-12 mx-auto rounded-full ${bulatan} mb-2"></div>
-                <p class="font-semibold">${w}</p>
-              </div>
-            `;
-          }).join("")}
-        </div>
-        <div class="flex justify-between">
-          <button onclick="goBackTHG()" class="bg-gray-500 text-white px-6 py-2 rounded-lg">Kembali</button>
-          <button onclick="generateLaporan()" class="bg-blue-600 text-white px-6 py-2 rounded-lg">Generate Laporan</button>
-        </div>
+else if(currentStep === 4){
+  stepContent.innerHTML = `
+    <div class="bg-white p-6 rounded-2xl shadow-md text-center">
+      <div class="flex justify-between mb-4">
+        <button onclick="goBackTHG()" class="bg-gray-500 text-white px-6 py-2 rounded-lg">Kembali</button>
+        <button onclick="generateLaporan()" class="bg-blue-600 text-white px-6 py-2 rounded-lg">Generate Laporan</button>
       </div>
-    `;
-  }
+      <h2 class="text-lg font-semibold mb-4">Pilih Status LED</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        ${["Belum Siap","Hampir Siap","Sudah Siap"].map(w=>{
+          const warnaBg = w==="Belum Siap" ? "bg-red-100 hover:bg-red-200"
+                        : w==="Hampir Siap" ? "bg-yellow-100 hover:bg-yellow-200"
+                        : "bg-green-100 hover:bg-green-200";
+          const bulatan = w==="Belum Siap" ? "bg-red-500"
+                        : w==="Hampir Siap" ? "bg-yellow-500"
+                        : "bg-green-500";
+          return `
+            <div onclick="setWarna('${w}')"
+                 class="cursor-pointer p-6 rounded-xl border ${warna===w?'ring-2 ring-blue-500':''} ${warnaBg}">
+              <div class="w-12 h-12 mx-auto rounded-full ${bulatan} mb-2"></div>
+              <p class="font-semibold">${w}</p>
+            </div>
+          `;
+        }).join("")}
+      </div>
+    </div>
+  `;
+}
 
   // STEP 5: LAPORAN
   else if(currentStep === 5){
