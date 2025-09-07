@@ -36,56 +36,61 @@ function renderStep(){
   renderStepIndicator();
 
   // STEP 1
-  if(currentStep === 1){
-    const counts = kambings.map(k=>({ nama:k, jumlah: laporanData.filter(d=>d.nama===k).length }));
+if(currentStep === 1){
+  const counts = kambings.map(k=>({
+    nama:k,
+    jumlah: laporanData.filter(d=>d.nama===k).length
+  }));
 
-    stepContent.innerHTML = `
-      <div class="bg-white p-6 rounded-2xl shadow-md text-center mb-6">
-        <h2 class="text-lg font-semibold mb-4">Keterangan Warna Status</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="p-4 rounded-xl border-2 border-red-400 bg-red-100">
-            <div class="text-5xl mb-2">🐐</div>
-            <p class="font-bold text-red-600">MERAH</p>
-            <p>Belum makan</p>
-          </div>
-          <div class="p-4 rounded-xl border-2 border-yellow-400 bg-yellow-100">
-            <div class="text-5xl mb-2">🐐</div>
-            <p class="font-bold text-yellow-600">KUNING</p>
-            <p>Sudah makan 1x</p>
-          </div>
-          <div class="p-4 rounded-xl border-2 border-green-400 bg-green-100">
-            <div class="text-5xl mb-2">🐐</div>
-            <p class="font-bold text-green-600">HIJAU</p>
-            <p>Sudah makan 2x</p>
-          </div>
+  stepContent.innerHTML = `
+    <div class="bg-white p-6 rounded-2xl shadow-md text-center mb-6">
+      <h2 class="text-lg font-semibold mb-4">Keterangan Warna Status</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="p-4 rounded-xl border-2 border-red-400 bg-red-100">
+          <div class="text-5xl mb-2">🐐</div>
+          <p class="font-bold text-red-600">MERAH</p>
+          <p>Belum makan</p>
+        </div>
+        <div class="p-4 rounded-xl border-2 border-yellow-400 bg-yellow-100">
+          <div class="text-5xl mb-2">🐐</div>
+          <p class="font-bold text-yellow-600">KUNING</p>
+          <p>Sudah makan 1x</p>
+        </div>
+        <div class="p-4 rounded-xl border-2 border-green-400 bg-green-100">
+          <div class="text-5xl mb-2">🐐</div>
+          <p class="font-bold text-green-600">HIJAU</p>
+          <p>Sudah makan 2x</p>
         </div>
       </div>
+    </div>
 
-      <div class="bg-white p-6 rounded-2xl shadow-md text-center">
-        <h2 class="text-lg font-semibold mb-4">Pilih Kambing</h2>
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
-          ${counts.map(c=>{
-            let warna = "bg-red-100 border-red-400 text-red-700"; 
-            if(c.jumlah===1) warna = "bg-yellow-100 border-yellow-400 text-yellow-700"; 
-            if(c.jumlah>=2) warna = "bg-green-100 border-green-400 text-green-700";
-            const isSelected = selectedKambing === c.nama ? "ring-4 ring-blue-400" : "";
-            return `
-              <div onclick="selectKambing('${c.nama}')"
-                   class="cursor-pointer p-4 rounded-xl shadow-md border-2 ${warna} ${isSelected} hover:opacity-80 transition">
-                <div class="text-5xl mb-2">🐐</div>
-                <p class="font-bold">${c.nama}</p>
-                <p>${c.jumlah>0?`${c.jumlah}x makan`:"Belum makan"}</p>
-              </div>
-            `;
-          }).join("")}
-        </div>
-        <div class="flex justify-between">
-          <button onclick="openPinModal('kambing')" class="bg-gray-800 text-white px-4 py-2 rounded-lg">Kelola Kambing</button>
-          <button onclick="goNext()" class="bg-blue-600 text-white px-6 py-2 rounded-lg">Lanjut ke Centang Makan</button>
-        </div>
+    <div class="bg-white p-6 rounded-2xl shadow-md text-center">
+      <div class="flex justify-between mb-4">
+        <button onclick="openPinModal('kambing')" class="bg-gray-800 text-white px-4 py-2 rounded-lg">Kelola Kambing</button>
+        <button onclick="goNext()" class="bg-blue-600 text-white px-6 py-2 rounded-lg">Lanjut ke Centang Makan</button>
       </div>
-    `;
-  }
+      <h2 class="text-lg font-semibold mb-4">Pilih Kambing</h2>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+        ${counts.map(c=>{
+          let warna = "bg-red-100 border-red-400 text-red-700"; 
+          if(c.jumlah===1) warna = "bg-yellow-100 border-yellow-400 text-yellow-700"; 
+          if(c.jumlah>=2) warna = "bg-green-100 border-green-400 text-green-700";
+
+          const isSelected = selectedKambing === c.nama ? "ring-4 ring-blue-400" : "";
+
+          return `
+            <div onclick="selectKambing('${c.nama}')"
+                 class="cursor-pointer p-4 rounded-xl shadow-md border-2 ${warna} ${isSelected} hover:opacity-80 transition">
+              <div class="text-5xl mb-2">🐐</div>
+              <p class="font-bold">${c.nama}</p>
+              <p>${c.jumlah>0?`${c.jumlah}x makan`:"Belum makan"}</p>
+            </div>
+          `;
+        }).join("")}
+      </div>
+    </div>
+  `;
+}
 
   // STEP 2
   else if(currentStep === 2){
