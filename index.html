@@ -28,34 +28,40 @@
 </div>
 
 
-    <!-- Status LCD -->
-    <div class="bg-white p-6 rounded-2xl shadow-md mb-6">
-      <h2 class="text-2xl font-semibold mb-4 text-center">Informasi Status Sensor LED</h2>
-      <div class="flex justify-center space-x-32">
-        <div class="flex flex-col items-center">
-          <div class="sensor-light sensor-red"></div>
-          <p class="text-red-600 font-bold">MERAH</p>
-          <p class="text-gray-600 text-sm">Belum Siap</p>
-        </div>
-        <div class="flex flex-col items-center">
-          <div class="sensor-light sensor-yellow"></div>
-          <p class="text-yellow-600 font-bold">KUNING</p>
-          <p class="text-gray-600 text-sm">Hampir Siap</p>
-        </div>
-        <div class="flex flex-col items-center">
-          <div class="sensor-light sensor-green"></div>
-          <p class="text-green-600 font-bold">HIJAU</p>
-          <p class="text-gray-600 text-sm">Sudah Siap</p>
-        </div>
+<!-- Status LED -->
+<div class="container mx-auto px-4 max-w-5xl mb-6">
+  <div class="bg-white p-6 rounded-2xl shadow-md">
+    <h2 class="text-2xl font-semibold mb-4 text-center">Informasi Status Sensor LED</h2>
+    <div class="flex justify-center space-x-32">
+      <div class="flex flex-col items-center">
+        <div class="sensor-light sensor-red"></div>
+        <p class="text-red-600 font-bold">MERAH</p>
+        <p class="text-gray-600 text-sm">Belum Siap</p>
+      </div>
+      <div class="flex flex-col items-center">
+        <div class="sensor-light sensor-yellow"></div>
+        <p class="text-yellow-600 font-bold">KUNING</p>
+        <p class="text-gray-600 text-sm">Hampir Siap</p>
+      </div>
+      <div class="flex flex-col items-center">
+        <div class="sensor-light sensor-green"></div>
+        <p class="text-green-600 font-bold">HIJAU</p>
+        <p class="text-gray-600 text-sm">Sudah Siap</p>
       </div>
     </div>
-
-    <!-- Step Indicator -->
-    <div id="stepIndicator" class="flex justify-center space-x-2 mb-4"></div>
-
-    <!-- Step container -->
-    <div id="stepContent"></div>
   </div>
+</div>
+
+<!-- Step Indicator -->
+<div class="container mx-auto px-4 max-w-5xl mb-4">
+  <div id="stepIndicator" class="flex justify-center space-x-2"></div>
+</div>
+
+<!-- Step container -->
+<div class="container mx-auto px-4 max-w-5xl mb-8">
+  <div id="stepContent"></div>
+</div>
+
 
   <!-- Modal PIN -->
   <div id="modalPin" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
