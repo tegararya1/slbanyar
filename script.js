@@ -17,7 +17,7 @@ let hapusLaporanIndex = null;
 let currentPinTarget = null;
 
 // DATA PROFIL & DRUM 
-let profiles = JSON.parse(localStorage.getItem("profiles")) || ["Ahmad","Siti","Budi","Rina","Dimas"];
+let profiles = JSON.parse(localStorage.getItem("profiles")) || ["Risky","Hafidz","Andra","Kiki","Dinda","Febri","Lanang","Taufik","Ryzuhu","Hasti"];
 let drums = JSON.parse(localStorage.getItem("drums")) || ["A","B","C","D"];
 function saveProfiles(){ localStorage.setItem("profiles", JSON.stringify(profiles)); }
 function saveDrums(){ localStorage.setItem("drums", JSON.stringify(drums)); }
